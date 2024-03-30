@@ -20,31 +20,43 @@ class Graph:
             parent[root_y] = root_x
             rank[root_x] += 1
 
-def kruskal(self):
-    minimum_spanning_tree = []
-    index, edges = 0, 0
+    def kruskal(self):
+        minimum_spanning_tree = []
+        index, edges = 0, 0
 
-    sorted_edges = sorted(self.graph, key=lambda item: item[2])
+        sorted_edges = sorted(self.graph, key=lambda item: item[2])
 
-    parent = []
-    rank = []
+        parent = []
+        rank = []
 
-    for node in range(self.V):
-        parent.append(node)
-        rank.append(0)
+        for node in range(self.V):
+            parent.append(node)
+            rank.append(0)
 
-    while edges < self.V - 1:
-        source, destination, weight = sorted_edges[index]
-        index += 1
+        while edges < self.V - 1:
+            source, destination, weight = sorted_edges[index]
+            index += 1
 
-        root_source = self.find(parent, source)
-        root_destination = self.find(parent, destination)
+            root_source = self.find(parent, source)
+            root_destination = self.find(parent, destination)
 
-        if root_source != root_destination:
-            edges += 1
-            minimum_spanning_tree.append([source, destination, weight])
-            self.union(parent, rank, root_source, root_destination)
+            if root_source != root_destination:
+                edges += 1
+                minimum_spanning_tree.append([source, destination, weight])
+                self.union(parent, rank, root_source, root_destination)
 
-    print("Edges of the minimum spanning tree")
-    for source, destination, weight in minimum_spanning_tree:
-        print("%d - %d: %d" % (source, destination, weight))
+        print("Edges of the minimum spanning tree")
+        for source, destination, weight in minimum_spanning_tree:
+            print("%d - %d: %d" % (source, destination, weight))
+
+
+# Driver code 
+if __name__ == '__main__': 
+    g = Graph(4)
+    g.add_edge(0, 1, 10)
+    g.add_edge(0, 2, 6)
+    g.add_edge(0, 3, 5)
+    g.add_edge(1, 3, 15)
+    g.add_edge(2, 3, 4)
+
+    g.kruskal()
